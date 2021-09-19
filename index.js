@@ -17,8 +17,12 @@ app.get("/", (req, res) => {
 const fetchData = async (req, res) => {
   const category = req.params.category;
   const pages = req.params.pages;
-  const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${process.env.API_KEY}&pageSize=${pages}`;
+  const query = req.query.q;
+  let url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${process.env.API_KEY}&pageSize=${pages}`;
+  const url_all = `https://newsapi.org/v2/everything?q=${query}&apiKey=${process.env.API_KEY}&pageSize=100`;
+
   try {
+    if (query) url = url_all;
     const response = await axios.get(url);
     const news = response.data;
     res.status(200).json(news);
@@ -28,6 +32,7 @@ const fetchData = async (req, res) => {
 };
 
 app.get("/news/:category/:pages", fetchData);
+app.get("/news", fetchData);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
