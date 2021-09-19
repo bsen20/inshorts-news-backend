@@ -1,12 +1,13 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
+import cors from "cors";
 const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cors());
 const PORT = process.env.PORT || 5000;
-// const API_KEY = "89a4fe43466c4b6595adc53c77ee1f21";
 
 //
 app.get("/", (req, res) => {
