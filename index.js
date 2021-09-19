@@ -15,9 +15,8 @@ app.get("/", (req, res) => {
 
 const fetchData = async (req, res) => {
   const category = req.params.category;
-  const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
-    process.env.API_KEY
-  }&pageSize=${100}`;
+  const pages = req.params.pages;
+  const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${process.env.API_KEY}&pageSize=${pages}`;
   try {
     const response = await axios.get(url);
     const news = response.data;
@@ -27,7 +26,7 @@ const fetchData = async (req, res) => {
   }
 };
 
-app.get("/news/:category", fetchData);
+app.get("/news/:category/:pages", fetchData);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
