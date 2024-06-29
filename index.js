@@ -6,7 +6,7 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
-app.use(cors({ origin: "https://in-shorts-news.web.app/" }));
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 //
